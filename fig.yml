@@ -1,0 +1,22 @@
+sentry:
+  image: slafs/sentry
+  volumes:
+    - "/tmp/sentry:/data"
+  environment:
+    SECRET_KEY: randomvalue
+    SENTRY_URL_PREFIX: http://localhost
+    DATABASE_URL: postgres://postgres:@postgresdb/postgres
+  ports:
+    - "9000:9000"
+  links:
+    - postgres:postgresdb
+
+postgres:
+  image: postgres
+  volumes:
+    - ./data:/data
+  environment:
+    _PGDATA: /data
+  ports:
+    - "5432:5432"
+
